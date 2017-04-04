@@ -28,6 +28,6 @@ grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg' > /mnt/install_arch
 chmod +x /mnt/install_arch
 echo "./install_arch"|arch-chroot /mnt
-
+rm /mnt/install_arch
 umount -R /mnt
 echo done
