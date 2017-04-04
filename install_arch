@@ -21,9 +21,9 @@ echo "KEYMAP=dk" >> /etc/vconsole.conf
 locale-gen
 echo "jannick" > /etc/hostname
 echo "127.0.0.1 jannick.localdomain jannick" > /etc/hosts
-pacman -S networkmanager
+pacman --noconfirm -S networkmanager
 systemctl enable NetworkManager
-pacman -S grub
+pacman --noconfirm -S grub
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg' > /mnt/install_arch
 chmod +x /mnt/install_arch
