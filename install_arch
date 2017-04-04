@@ -30,4 +30,4 @@ chmod +x /mnt/install_arch
 echo "./install_arch"|arch-chroot /mnt
 rm /mnt/install_arch
 umount -R /mnt
-echo done
+poweroff
