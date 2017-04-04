@@ -1,8 +1,5 @@
 #!/bin/bash
 
-loadkeys dk
-ip link set wlp4s0 up
-wpa_supplicant -D nl80211,wext -i wlp4s0 -c <(wpa_passphrase ZyXELC2A973 DBA3B55D1EE7) -B
 timedatectl set-ntp true
 echo -e "o\nn\n\n\n\n+4g\nn\n\n\n\n\nt\n1\n82\na\n2\nw\nq\n"|sudo fdisk /dev/sda
 mkfs.ext4 /dev/sda2
@@ -16,8 +13,7 @@ echo "#
 UUID=$(lsblk -no UUID /dev/sda2)         	ext4      	rw,relatime,data=ordered	0 1
 UUID=$(lsblk -no UUID /dev/sda1)	none		swap		defaults			0 0
 " > /mnt/etc/fstab
-arch-chroot /mnt
-ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
+echo 'ln -sf /usr/share/zoneinfo/Europe/Copenhagen /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
@@ -30,7 +26,9 @@ systemctl enable NetworkManager
 passwd
 pacman -S grub
 grub-install --target=i386-pc /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
-exit
+grub-mkconfig -o /boot/grub/grub.cfg' > /mnt/install_arch
+chmod +x /mnt/install_arch
+echo "./install_arch"|arch-chroot /mnt
+
 umount -R /mnt
-poweroff
+echo done
